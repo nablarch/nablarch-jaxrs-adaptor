@@ -1,5 +1,5 @@
 group = 'com.nablarch.integration'
-version = '1.0.1'
+version = '1.0.2'
 description = 'JAX-RS実装のアダプタ'
 
 buildscript {
@@ -37,13 +37,13 @@ subprojects {
   apply from: "../cobertura-0.0.1.gradle"
 
   // ビルド時のJavaバージョンを指定する
-  sourceCompatibility=JavaVersion.VERSION_1_7
-  targetCompatibility=JavaVersion.VERSION_1_7
+  sourceCompatibility=JavaVersion.VERSION_1_6
+  targetCompatibility=JavaVersion.VERSION_1_6
 
   dependencies {
     provided 'javax:javaee-api:7.0'
 
-    compile 'com.nablarch.framework:nablarch-fw-jaxrs:1.0.1'
+    compile 'com.nablarch.framework:nablarch-fw-jaxrs:1.0.2'
     provided 'org.slf4j:slf4j-simple:1.7.10'
 
     testCompile 'org.jmockit:jmockit:1.19'
