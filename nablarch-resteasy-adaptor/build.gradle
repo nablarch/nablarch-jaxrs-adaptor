@@ -1,10 +1,10 @@
 group = 'com.nablarch.integration'
-version = '1.0.1'
+version = '1.0.2'
 description = 'JAX-RS実装のRESTEasy用アダプタ'
 
 jar.baseName='nablarch-resteasy-adaptor'
 
 dependencies {
-  compile 'com.nablarch.integration:nablarch-jackson-adaptor:1.0.1'
+  compile 'com.nablarch.integration:nablarch-jackson-adaptor:1.0.2'
   testRuntime 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
 }

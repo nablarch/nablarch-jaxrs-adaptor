@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.nablarch.integration</groupId>
   <artifactId>nablarch-resteasy-adaptor</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <dependencies>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -27,7 +27,7 @@
     <dependency>
       <groupId>com.nablarch.framework</groupId>
       <artifactId>nablarch-fw-jaxrs</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -45,7 +45,7 @@
     <dependency>
       <groupId>com.nablarch.integration</groupId>
       <artifactId>nablarch-jackson-adaptor</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
