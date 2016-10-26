@@ -5,7 +5,7 @@ description = 'JAX-RS実装のJersey用アダプタ'
 jar.baseName='nablarch-jersey-adaptor'
 
 dependencies {
-  compile 'com.nablarch.integration:nablarch-jackson-adaptor:1.0.2'
+  compile project(':nablarch-jackson-adaptor')
   testRuntime 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
 }
 
