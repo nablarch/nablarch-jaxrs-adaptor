@@ -34,6 +34,7 @@ subprojects {
 
   apply plugin: 'com.nablarch.dev.nablarch-build'
   apply plugin: 'com.nablarch.dev.nablarch-maven-deploy'
+  apply plugin: 'com.nablarch.dev.nablarch-version'
   apply from: "../cobertura-0.0.1.gradle"
 
   // ビルド時のJavaバージョンを指定する
@@ -43,7 +44,7 @@ subprojects {
   dependencies {
     provided 'javax:javaee-api:7.0'
 
-    compile 'com.nablarch.framework:nablarch-fw-jaxrs:1.0.2'
+    compile "com.nablarch.framework:nablarch-fw-jaxrs:${nablarchFwJaxrsVersion}"
     provided 'org.slf4j:slf4j-simple:1.7.10'
 
     testCompile 'org.jmockit:jmockit:1.19'
@@ -59,6 +60,6 @@ subprojects {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.11'
+  gradleVersion = '2.13'
 }
 
