@@ -35,7 +35,7 @@ subprojects {
   apply plugin: 'com.nablarch.dev.nablarch-build'
   apply plugin: 'com.nablarch.dev.nablarch-maven-deploy'
   apply plugin: 'com.nablarch.dev.nablarch-version'
-  apply from: "../cobertura-0.0.1.gradle"
+  apply from: 'https://github.com/nablarch/nablarch-gradle-plugin/blob/develop/scripts/cobertura/cobertura-0.0.1.gradle?raw=true'
 
   // ビルド時のJavaバージョンを指定する
   sourceCompatibility=JavaVersion.VERSION_1_6
@@ -55,6 +55,10 @@ subprojects {
 
   test {
     ignoreFailures = true
+  }
+  
+  tasks.sonarRunner {
+    dependsOn = ['coverage']
   }
 
 }
