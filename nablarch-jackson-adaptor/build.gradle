@@ -1,12 +1,12 @@
 group = 'com.nablarch.integration'
-version = '1.0.2'
+version = '1.0.3'
 description = 'Jackson用アダプタ'
 
 jar.baseName='nablarch-jackson-adaptor'
 
 dependencies {
   // 2.x
-  provided 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
+  compile 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
   // 1.x
   provided 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
 
