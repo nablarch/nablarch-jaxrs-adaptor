@@ -9,7 +9,4 @@ dependencies {
   compile 'com.fasterxml.jackson.core:jackson-databind:2.7.0'
   // 1.x
   provided 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
-
-  // test api
-  testCompile 'com.nablarch.dev:nablarch-test-support:0.0.5'
 }
