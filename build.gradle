@@ -53,10 +53,6 @@ subprojects {
     testRuntime 'javax.servlet:servlet-api:2.5'
   }
 
-  test {
-    ignoreFailures = true
-  }
-  
   tasks.sonarRunner {
     dependsOn = ['coverage']
   }
