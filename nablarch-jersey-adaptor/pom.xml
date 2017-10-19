@@ -10,6 +10,7 @@
     <groupId>com.nablarch</groupId>
     <artifactId>nablarch-parent</artifactId>
     <version>1.0.0</version>
+    <relativePath/>
   </parent>
 
   <dependencies>
