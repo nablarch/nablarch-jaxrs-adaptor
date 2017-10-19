@@ -1,5 +1,0 @@
-rootProject.name = 'nablarch-jaxrs-adaptor'
-
-include 'nablarch-jackson-adaptor'
-include 'nablarch-resteasy-adaptor'
-include 'nablarch-jersey-adaptor'
