@@ -9,6 +9,13 @@
   <version>1.0.2</version>
   <packaging>pom</packaging>
 
+  <parent>
+    <groupId>com.nablarch</groupId>
+    <artifactId>nablarch-parent</artifactId>
+    <version>1.0.0</version>
+    <relativePath/>
+  </parent>
+
   <modules>
     <module>nablarch-jackson-adaptor</module>
     <module>nablarch-jersey-adaptor</module>
