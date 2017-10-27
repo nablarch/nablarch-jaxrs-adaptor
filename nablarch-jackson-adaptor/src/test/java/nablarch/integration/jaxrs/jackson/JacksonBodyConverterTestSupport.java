@@ -1,7 +1,7 @@
 package nablarch.integration.jaxrs.jackson;
 
 import mockit.Mocked;
-import mockit.NonStrictExpectations;
+import mockit.Expectations;
 import nablarch.fw.ExecutionContext;
 import nablarch.fw.jaxrs.BodyConverterSupport;
 import nablarch.fw.jaxrs.JaxRsContext;
@@ -67,11 +67,12 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
     @Test
     public void testRead_json() throws Exception {
 
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getRequestClass();
             result = TestBean.class;
             jaxRsContext.getConsumesMediaType();
             result = "application/json";
+            minTimes = 0;
             servletRequest.getCharacterEncoding();
             result = "utf-8";
             servletRequest.getReader();
@@ -82,11 +83,12 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
         assertThat(bean.getNum(), is(123L));
         assertThat(bean.isFlg(), is(true));
 
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getRequestClass();
             result = TestBean.class;
             jaxRsContext.getConsumesMediaType();
             result = "application/json";
+            minTimes = 0;
             executionContext.getServletRequest();
             result = servletRequest;
             servletRequest.getCharacterEncoding();
@@ -102,11 +104,12 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
 
     @Test
     public void testRead_with_context() throws Exception {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getRequestClass();
             result = TestBean.class;
             jaxRsContext.getConsumesMediaType();
             result = "application/json";
+            minTimes = 0;
             servletRequest.getCharacterEncoding();
             result = "utf-8";
             servletRequest.getReader();
@@ -124,7 +127,7 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("consumes media type and resource method signature is mismatch.");
 
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getRequestClass();
             result = null;
         }};
@@ -134,11 +137,12 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
     @Test
     public void testRead_charset_invalid() throws Exception {
 
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getRequestClass();
             result = TestBean.class;
             jaxRsContext.getConsumesMediaType();
             result = "application/json";
+            minTimes = 0;
             servletRequest.getCharacterEncoding();
             result = "test";
         }};
@@ -154,11 +158,12 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
 
     @Test
     public void testRead_json_failed() throws Exception {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getRequestClass();
             result = TestBean.class;
             jaxRsContext.getConsumesMediaType();
             result = "application/json";
+            minTimes = 0;
             servletRequest.getCharacterEncoding();
             result = "utf-8";
             servletRequest.getReader();
@@ -182,11 +187,12 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
      */
     @Test
     public void unknownPropertyInJson_shouldThrowError_defaultImplementation() throws Exception {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getRequestClass();
             result = TestBean.class;
             jaxRsContext.getConsumesMediaType();
             result = "application/json";
+            minTimes = 0;
             servletRequest.getCharacterEncoding();
             result = "utf-8";
             servletRequest.getReader();
@@ -212,11 +218,12 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
      */
     @Test
     public void unknownPropertyInJson_shouldThrowError_customImplementation() throws Exception {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getRequestClass();
             result = TestBean.class;
             jaxRsContext.getConsumesMediaType();
             result = "application/json";
+            minTimes = 0;
             servletRequest.getCharacterEncoding();
             result = "utf-8";
             servletRequest.getReader();
@@ -239,7 +246,7 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
         TestBean bean = new TestBean("aaa",123L, true);
 
         // ProducesMediaTypeにcharset=utf-8が設定されているパターン
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getProducesMediaType();
             result = "application/json;charset=utf-8";
         }};
@@ -251,7 +258,7 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
         assertThat(response.getStatusCode(), is(200));
 
         // ProducesMediaTypeにcharset=windows-31jが設定されているパターン
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getProducesMediaType();
             result = "application/json;charset=windows-31j";
         }};
@@ -263,7 +270,7 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
         assertThat(response.getStatusCode(), is(200));
 
         // ProducesMediaTypeにcharsetが設定されていないパターン
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getProducesMediaType();
             result = "application/json";
         }};
@@ -275,7 +282,7 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
         assertThat(response.getStatusCode(), is(200));
 
         // ProducesMediaTypeにcharsetが設定されておらず、デフォルトエンコーディングにISO-8859-1を指定しているパターン
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getProducesMediaType();
             result = "application/json";
         }};
@@ -293,7 +300,7 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("produces charset is invalid. charset = [test]");
 
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getProducesMediaType();
             result = "application/json;charset=test";
         }};
@@ -316,7 +323,7 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
     public void enum_shouldReturnEnumName_defaultImplementation() throws Exception {
 
         // ProducesMediaTypeにcharset=utf-8が設定されているパターン
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getProducesMediaType();
             result = "application/json;charset=utf-8";
         }};
@@ -338,7 +345,7 @@ public abstract class JacksonBodyConverterTestSupport<T extends BodyConverterSup
     public void enum_shouldReturnEnumName_customImplementation() throws Exception {
 
         // ProducesMediaTypeにcharset=utf-8が設定されているパターン
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getProducesMediaType();
             result = "application/json;charset=utf-8";
         }};

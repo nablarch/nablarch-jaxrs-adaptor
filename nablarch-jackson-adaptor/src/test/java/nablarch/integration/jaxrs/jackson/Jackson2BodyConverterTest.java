@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import mockit.Mocked;
-import mockit.NonStrictExpectations;
+import mockit.Expectations;
 import org.junit.Test;
 
 /**
@@ -50,7 +50,7 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
         expectedException.expectMessage("failed to write response.");
 
         final TestBean bean = new TestBean("aaa",123L, true);
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getProducesMediaType();
             result = "application/json;charset=utf-8";
             mapper.writeValueAsString(bean);

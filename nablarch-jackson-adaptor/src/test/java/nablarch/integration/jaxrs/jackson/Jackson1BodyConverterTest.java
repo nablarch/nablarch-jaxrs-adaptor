@@ -1,7 +1,7 @@
 package nablarch.integration.jaxrs.jackson;
 
 import mockit.Mocked;
-import mockit.NonStrictExpectations;
+import mockit.Expectations;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -50,7 +50,7 @@ public class Jackson1BodyConverterTest extends JacksonBodyConverterTestSupport<J
         expectedException.expectMessage("failed to write response.");
 
         final TestBean bean = new TestBean("aaa",123L, true);
-        new NonStrictExpectations() {{
+        new Expectations() {{
             jaxRsContext.getProducesMediaType();
             result = "application/json;charset=utf-8";
             mapper.writeValueAsString(bean);
