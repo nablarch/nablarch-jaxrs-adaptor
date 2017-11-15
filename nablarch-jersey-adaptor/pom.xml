@@ -7,10 +7,9 @@
   <version>1.0.2</version>
 
   <parent>
-    <groupId>com.nablarch</groupId>
-    <artifactId>nablarch-parent</artifactId>
-    <version>5u12</version>
-    <relativePath/>
+    <groupId>com.nablarch.integration</groupId>
+    <artifactId>nablarch-jaxrs-adaptor</artifactId>
+    <version>1.0.2</version>
   </parent>
 
   <dependencies>
