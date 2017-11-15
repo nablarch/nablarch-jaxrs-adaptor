@@ -10,9 +10,9 @@
   <packaging>pom</packaging>
 
   <scm>
-    <connection>scm:git:git://github.com/nablarch/${project.artifactId}.git</connection>
-    <developerConnection>scm:git:git://github.com/nablarch/${project.artifactId}.git</developerConnection>
-    <url>https://github.com/nablarch/${project.artifactId}/tree/master</url>
+    <connection>scm:git:git://github.com/nablarch/nablarch-jaxrs-adaptor.git</connection>
+    <developerConnection>scm:git:git://github.com/nablarch/nablarch-jaxrs-adaptor.git</developerConnection>
+    <url>https://github.com/nablarch/nablarch-jaxrs-adaptor/tree/master</url>
   </scm>
 
   <parent>
