@@ -2,6 +2,7 @@ package nablarch.integration.jaxrs.jackson;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import mockit.Mocked;
 import mockit.Expectations;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import java.io.*;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -102,7 +104,7 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
     @Test
     public void testRead_polymorphic_fail() throws Exception {
         expectedException.expect(HttpErrorResponse.class);
-        expectedException.expectMessage("com.fasterxml.jackson.databind.exc.InvalidDefinitionException");
+        expectedException.expectCause(isA(InvalidDefinitionException.class));
         new Expectations() {{
             jaxRsContext.getRequestClass();
             result = Serializable.class;
@@ -147,7 +149,7 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
     @Test
     public void testRead_polymorphic_nested_class_with_annotation_disabled() throws Exception {
         expectedException.expect(HttpErrorResponse.class);
-        expectedException.expectMessage("com.fasterxml.jackson.databind.exc.InvalidDefinitionException");
+        expectedException.expectCause(isA(InvalidDefinitionException.class));
         new Expectations() {{
             jaxRsContext.getRequestClass();
             result = ExampleBeanInField.class;
