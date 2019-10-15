@@ -8,10 +8,7 @@ import mockit.Expectations;
 import nablarch.fw.web.HttpErrorResponse;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStreamReader;
-import java.io.Serializable;
+import java.io.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -71,7 +68,7 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
      * {@link Serializable} を継承したクラスを使用してjackson-databindのデシリアライズを確認する。
      * セキュリティホールになる可能性がある。
      *
-     * @throws Exception 何らかの例外
+     * @throws Exception 予期しない例外
      */
     @Test
     public void testRead_polymorphic() throws Exception {
@@ -84,7 +81,7 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
             servletRequest.getCharacterEncoding();
             result = "utf-8";
             servletRequest.getReader();
-            result = new BufferedReader(new InputStreamReader(new ByteArrayInputStream("[\"nablarch.integration.jaxrs.jackson.Jackson2BodyConverterTest$ExampleBean\", { \"str\" : \"str\" }]".getBytes("utf-8")), "utf-8"));
+            result = new BufferedReader(new StringReader("[\"nablarch.integration.jaxrs.jackson.Jackson2BodyConverterTest$ExampleBean\", { \"str\" : \"str\" }]"));
         }};
         Jackson2BodyConverter target = new Jackson2BodyConverter() {
             @Override
@@ -100,11 +97,12 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
     /**
      * {@link Serializable} を継承したクラスを使用してjackson-databindのデシリアライズできないことを確認する。
      *
-     * @throws Exception エラーレスポンス
+     * @throws Exception 予期しない例外
      */
     @Test
     public void testRead_polymorphic_fail() throws Exception {
         expectedException.expect(HttpErrorResponse.class);
+        expectedException.expectMessage("com.fasterxml.jackson.databind.exc.InvalidDefinitionException");
         new Expectations() {{
             jaxRsContext.getRequestClass();
             result = Serializable.class;
@@ -114,7 +112,7 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
             servletRequest.getCharacterEncoding();
             result = "utf-8";
             servletRequest.getReader();
-            result = new BufferedReader(new InputStreamReader(new ByteArrayInputStream("[\"nablarch.integration.jaxrs.jackson.Jackson2BodyConverterTest$ExampleBean\", { \"str\" : \"str\" }]".getBytes("utf-8")), "utf-8"));
+            result = new BufferedReader(new StringReader("[\"nablarch.integration.jaxrs.jackson.Jackson2BodyConverterTest$ExampleBean\", { \"str\" : \"str\" }]"));
         }};
         Serializable bean = (Serializable) sut.read(request, executionContext);
     }
@@ -122,7 +120,7 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
     /**
      * {@link Serializable} のフィールドにアノテーションを付与することでJSONで指定したクラスをデシリアライズできることを確認する。
      *
-     * @throws Exception 何らかの例外
+     * @throws Exception 予期しない例外
      */
     @Test
     public void testRead_polymorphic_nested_class() throws Exception {
@@ -135,7 +133,7 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
             servletRequest.getCharacterEncoding();
             result = "utf-8";
             servletRequest.getReader();
-            result = new BufferedReader(new InputStreamReader(new ByteArrayInputStream("{ \"field1\" : { \"str\" : \"str\" }, \"field2\" : { \"@class\" : \"nablarch.integration.jaxrs.jackson.Jackson2BodyConverterTest$ExampleBean\", \"str\" : \"str\" } }".getBytes("utf-8")), "utf-8"));
+            result = new BufferedReader(new StringReader("{ \"field1\" : { \"str\" : \"str\" }, \"field2\" : { \"@class\" : \"nablarch.integration.jaxrs.jackson.Jackson2BodyConverterTest$ExampleBean\", \"str\" : \"str\" } }"));
         }};
         ExampleBeanInField bean = (ExampleBeanInField) sut.read(request, executionContext);
         assertThat(((ExampleBean) bean.getField2()).getStr(), is("str"));
@@ -144,11 +142,12 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
     /**
      * {@link Serializable} のフィールドにアノテーションを付与していてもJSONで指定したクラスをデシリアライズできないことを確認する。
      *
-     * @throws Exception エラーレスポンス
+     * @throws Exception 予期しない例外
      */
     @Test
     public void testRead_polymorphic_nested_class_with_annotation_disabled() throws Exception {
         expectedException.expect(HttpErrorResponse.class);
+        expectedException.expectMessage("com.fasterxml.jackson.databind.exc.InvalidDefinitionException");
         new Expectations() {{
             jaxRsContext.getRequestClass();
             result = ExampleBeanInField.class;
@@ -158,7 +157,7 @@ public class Jackson2BodyConverterTest extends JacksonBodyConverterTestSupport<J
             servletRequest.getCharacterEncoding();
             result = "utf-8";
             servletRequest.getReader();
-            result = new BufferedReader(new InputStreamReader(new ByteArrayInputStream("{ \"field1\" : { \"str\" : \"str\" }, \"field2\" : { \"@class\" : \"nablarch.integration.jaxrs.jackson.Jackson2BodyConverterTest$ExampleBean\", \"str\" : \"str\" } }".getBytes("utf-8")), "utf-8"));
+            result = new BufferedReader(new StringReader("{ \"field1\" : { \"str\" : \"str\" }, \"field2\" : { \"@class\" : \"nablarch.integration.jaxrs.jackson.Jackson2BodyConverterTest$ExampleBean\", \"str\" : \"str\" } }"));
         }};
         Jackson2BodyConverter target = new Jackson2BodyConverter() {
             @Override
