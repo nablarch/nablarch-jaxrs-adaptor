@@ -1,7 +1,7 @@
 package nablarch.integration.jaxrs.jackson;
 
-import mockit.Mocked;
 import mockit.Expectations;
+import mockit.Mocked;
 import nablarch.fw.ExecutionContext;
 import nablarch.fw.jaxrs.BodyConverterSupport;
 import nablarch.fw.jaxrs.JaxRsContext;
@@ -11,8 +11,6 @@ import nablarch.fw.web.HttpResponse;
 import nablarch.fw.web.servlet.NablarchHttpServletRequestWrapper;
 import nablarch.fw.web.servlet.ServletExecutionContext;
 import nablarch.test.support.log.app.OnMemoryLogWriter;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.SerializationConfig.Feature;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,7 +25,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.UnsupportedCharsetException;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
