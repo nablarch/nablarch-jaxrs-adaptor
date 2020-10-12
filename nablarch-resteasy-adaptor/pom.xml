@@ -4,19 +4,19 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.nablarch.integration</groupId>
   <artifactId>nablarch-resteasy-adaptor</artifactId>
-  <version>1.0.6</version>
+  <version>5-NEXT-SNAPSHOT</version>
 
   <parent>
     <groupId>com.nablarch.integration</groupId>
     <artifactId>nablarch-jaxrs-adaptor</artifactId>
-    <version>1.0.6</version>
+    <version>5-NEXT-SNAPSHOT</version>
   </parent>
 
   <dependencies>
     <dependency>
       <groupId>com.nablarch.integration</groupId>
       <artifactId>nablarch-jackson-adaptor</artifactId>
-      <version>1.0.6</version>
+      <version>5-NEXT-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
