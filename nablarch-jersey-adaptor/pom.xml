@@ -4,19 +4,19 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.nablarch.integration</groupId>
   <artifactId>nablarch-jersey-adaptor</artifactId>
-  <version>5-NEXT-SNAPSHOT</version>
+  <version>1.0.6</version>
 
   <parent>
     <groupId>com.nablarch.integration</groupId>
     <artifactId>nablarch-jaxrs-adaptor</artifactId>
-    <version>5-NEXT-SNAPSHOT</version>
+    <version>1.0.8</version>
   </parent>
 
   <dependencies>
     <dependency>
       <groupId>com.nablarch.integration</groupId>
       <artifactId>nablarch-jackson-adaptor</artifactId>
-      <version>5-NEXT-SNAPSHOT</version>
+      <version>1.0.7</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
