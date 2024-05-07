@@ -17,7 +17,7 @@ import java.io.Reader;
 
 /**
  * Jackson用の{@link nablarch.fw.jaxrs.BodyConverter}の実装をサポートするクラス。
- *
+ * <p>
  * このConverterは、メディアタイプが{@code application/json}で始まっている場合に
  * リクエスト/レスポンスを変換する。(大文字、小文字は問わない)
  *
