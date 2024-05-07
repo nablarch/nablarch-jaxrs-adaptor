@@ -2,6 +2,7 @@ package nablarch.integration.jaxrs.jackson;
 
 import nablarch.core.log.Logger;
 import nablarch.core.log.LoggerManager;
+import nablarch.core.util.annotation.Published;
 import nablarch.fw.ExecutionContext;
 import nablarch.fw.jaxrs.BodyConverterSupport;
 import nablarch.fw.jaxrs.JaxRsContext;
@@ -22,6 +23,7 @@ import java.io.Reader;
  *
  * @author Kiyohito Itoh
  */
+@Published(tag = "architect")
 public abstract class JacksonBodyConverterSupport extends BodyConverterSupport {
 
     /** ロガー */
