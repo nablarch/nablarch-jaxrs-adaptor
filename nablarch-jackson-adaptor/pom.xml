@@ -3,9 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.nablarch.integration</groupId>
   <artifactId>nablarch-jackson-adaptor</artifactId>
-  <version>5-NEXT-SNAPSHOT</version>
 
   <parent>
     <groupId>com.nablarch.integration</groupId>
