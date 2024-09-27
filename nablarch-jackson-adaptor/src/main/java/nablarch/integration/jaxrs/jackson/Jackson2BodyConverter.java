@@ -5,6 +5,7 @@ import java.io.Reader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import nablarch.core.util.annotation.Published;
 import nablarch.fw.jaxrs.BodyConverter;
 
 /**
@@ -12,6 +13,7 @@ import nablarch.fw.jaxrs.BodyConverter;
  *
  * @author Kiyohito Itoh
  */
+@Published(tag = "architect")
 public class Jackson2BodyConverter extends JacksonBodyConverterSupport {
 
     /** {@link ObjectMapper} */
