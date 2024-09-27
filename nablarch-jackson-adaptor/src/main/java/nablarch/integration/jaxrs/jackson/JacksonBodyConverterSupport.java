@@ -2,6 +2,7 @@ package nablarch.integration.jaxrs.jackson;
 
 import nablarch.core.log.Logger;
 import nablarch.core.log.LoggerManager;
+import nablarch.core.util.annotation.Published;
 import nablarch.fw.ExecutionContext;
 import nablarch.fw.jaxrs.BodyConverterSupport;
 import nablarch.fw.jaxrs.JaxRsContext;
@@ -16,12 +17,13 @@ import java.io.Reader;
 
 /**
  * Jackson用の{@link nablarch.fw.jaxrs.BodyConverter}の実装をサポートするクラス。
- *
+ * <p>
  * このConverterは、メディアタイプが{@code application/json}で始まっている場合に
  * リクエスト/レスポンスを変換する。(大文字、小文字は問わない)
  *
  * @author Kiyohito Itoh
  */
+@Published(tag = "architect")
 public abstract class JacksonBodyConverterSupport extends BodyConverterSupport {
 
     /** ロガー */
