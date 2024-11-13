@@ -31,7 +31,7 @@ public class JerseyJaxRsHandlerListFactory implements JaxRsHandlerListFactory {
         final List<Handler<HttpRequest, ?>> list = new ArrayList<Handler<HttpRequest, ?>>();
 
         final BodyConvertHandler bodyConvertHandler = new BodyConvertHandler();
-        bodyConvertHandler.addBodyConverter(new Jackson2BodyConverter());
+        bodyConvertHandler.addBodyConverter(new JerseyJackson2BodyConverter());
         bodyConvertHandler.addBodyConverter(new JaxbBodyConverter());
         bodyConvertHandler.addBodyConverter(new FormUrlEncodedConverter());
         list.add(bodyConvertHandler);
