@@ -34,7 +34,7 @@ public class JerseyJaxRsHandlerListFactoryTest {
         assertThat(list.get(0), instanceOf(BodyConvertHandler.class));
         List<BodyConverter> bodyConverters = ReflectionUtil.getFieldValue(list.get(0), "bodyConverters");
         assertThat(bodyConverters.size(), is(3));
-        assertThat(bodyConverters.get(0), instanceOf(Jackson2BodyConverter.class));
+        assertThat(bodyConverters.get(0), instanceOf(JerseyJackson2BodyConverter.class));
         assertThat(bodyConverters.get(1), instanceOf(JaxbBodyConverter.class));
         assertThat(bodyConverters.get(2), instanceOf(FormUrlEncodedConverter.class));
 
