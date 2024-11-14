@@ -10,9 +10,9 @@ import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
@@ -36,12 +36,15 @@ public class ResteasyJackson2BodyConverterTest {
     public void dateAndTimeSerialize() throws NoSuchMethodException {
         ResteasyJackson2BodyConverter sut = new ResteasyJackson2BodyConverter();
 
-        ZoneOffset offset = ZonedDateTime.now(ZoneId.systemDefault()).getOffset();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, 11, 17, 11, 56, 29);
+        calendar.clear(Calendar.MILLISECOND);
 
         DataClass data = new DataClass(
+                calendar.getTime(),
                 LocalDate.of(2024, 12, 17),
                 LocalDateTime.of(2024, 12, 17, 11, 56, 29),
-                OffsetDateTime.of(2024, 12, 17, 11, 56, 29, 0, offset)
+                OffsetDateTime.of(2024, 12, 17, 11, 56, 29, 0, ZoneOffset.ofHours(9))
         );
 
         Method method = Resource.class.getMethod("get", DataClass.class);
@@ -55,16 +58,14 @@ public class ResteasyJackson2BodyConverterTest {
 
         String json = response.getBodyString();
 
-        assertThat(json, is("{\"date\":\"2024-12-17\",\"localDateTime\":\"2024-12-17T11:56:29\",\"offsetDateTime\":\"2024-12-17T11:56:29" + offset + "\"}"));
+        assertThat(json, is("{\"utilDate\":\"2024-12-17T02:56:29.000+00:00\",\"date\":\"2024-12-17\",\"localDateTime\":\"2024-12-17T11:56:29\",\"offsetDateTime\":\"2024-12-17T02:56:29Z\"}"));
     }
 
     @Test
     public void dateAndTimeDeserialize() throws NoSuchMethodException {
         ResteasyJackson2BodyConverter sut = new ResteasyJackson2BodyConverter();
 
-        ZoneOffset offset = ZonedDateTime.now(ZoneId.systemDefault()).getOffset();
-
-        String json = "{\"date\":\"2024-12-17\",\"localDateTime\":\"2024-12-17T11:56:29\",\"offsetDateTime\":\"2024-12-17T11:56:29" + offset + "\"}";
+        String json = "{\"utilDate\":\"2024-12-17T02:56:29.000+00:00\",\"date\":\"2024-12-17\",\"localDateTime\":\"2024-12-17T11:56:29\",\"offsetDateTime\":\"2024-12-17T11:56:29+0900\"}";
 
         HttpRequest request = new JaxRsHttpRequest(null);
 
@@ -86,10 +87,15 @@ public class ResteasyJackson2BodyConverterTest {
             }
         });
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, 11, 17, 11, 56, 29);
+        calendar.clear(Calendar.MILLISECOND);
+
         DataClass expected = new DataClass(
+                calendar.getTime(),
                 LocalDate.of(2024, 12, 17),
                 LocalDateTime.of(2024, 12, 17, 11, 56, 29),
-                OffsetDateTime.of(2024, 12, 17, 11, 56, 29, 0, offset)
+                OffsetDateTime.of(2024, 12, 17, 2, 56, 29, 0, ZoneOffset.UTC)
         );
 
 
@@ -97,6 +103,7 @@ public class ResteasyJackson2BodyConverterTest {
     }
 
     public record DataClass(
+            Date utilDate,
             LocalDate date,
             LocalDateTime localDateTime,
             OffsetDateTime offsetDateTime

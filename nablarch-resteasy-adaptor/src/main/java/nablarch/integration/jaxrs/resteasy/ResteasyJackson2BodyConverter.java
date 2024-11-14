@@ -22,7 +22,7 @@ public class ResteasyJackson2BodyConverter extends Jackson2BodyConverter {
     @Override
     protected void configure(ObjectMapper objectMapper) {
         objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.setTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));  // JacksonのデフォルトはUTC固定のため
+        objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"));
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 }
