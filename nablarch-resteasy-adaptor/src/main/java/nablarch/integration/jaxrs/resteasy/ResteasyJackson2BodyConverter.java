@@ -1,6 +1,5 @@
 package nablarch.integration.jaxrs.resteasy;
 
-import java.time.ZoneId;
 import java.util.TimeZone;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
