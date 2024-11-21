@@ -62,36 +62,6 @@ public class JerseyJackson2BodyConverterTest {
     }
 
     @Test
-    public void dateAndTimeSerializeSetTimeZone() throws NoSuchMethodException {
-        JerseyJackson2BodyConverter sut = new JerseyJackson2BodyConverter();
-        sut.setTimeZone("Asia/Tokyo");
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, 11, 17, 11, 56, 29);
-        calendar.clear(Calendar.MILLISECOND);
-
-        DataClass data = new DataClass(
-                calendar.getTime(),
-                LocalDate.of(2024, 12, 17),
-                LocalDateTime.of(2024, 12, 17, 11, 56, 29),
-                OffsetDateTime.of(2024, 12, 17, 11, 56, 29, 0, ZoneOffset.ofHours(9))
-        );
-
-        Method method = Resource.class.getMethod("get", DataClass.class);
-
-        HttpResponse response = sut.write(data, new ExecutionContext() {
-            @Override
-            public JaxRsContext getRequestScopedVar(String varName) throws ClassCastException {
-                return new JaxRsContext(method);
-            }
-        });
-
-        String json = response.getBodyString();
-
-        assertThat(json, is("{\"utilDate\":\"2024-12-17T11:56:29.000+09:00\",\"date\":\"2024-12-17\",\"localDateTime\":\"2024-12-17T11:56:29\",\"offsetDateTime\":\"2024-12-17T11:56:29+09:00\"}"));
-    }
-
-    @Test
     public void dateAndTimeDeserialize() throws NoSuchMethodException {
         JerseyJackson2BodyConverter sut = new JerseyJackson2BodyConverter();
 
@@ -126,47 +96,6 @@ public class JerseyJackson2BodyConverterTest {
                 LocalDate.of(2024, 12, 17),
                 LocalDateTime.of(2024, 12, 17, 11, 56, 29),
                 OffsetDateTime.of(2024, 12, 17, 2, 56, 29, 0, ZoneOffset.UTC)
-        );
-
-        assertThat(data, is(expected));
-    }
-
-    @Test
-    public void dateAndTimeDeserializeSetTimeZone() throws NoSuchMethodException {
-        JerseyJackson2BodyConverter sut = new JerseyJackson2BodyConverter();
-        sut.setTimeZone("Asia/Tokyo");
-
-        String json = "{\"utilDate\":\"2024-12-17T02:56:29.000+00:00\",\"date\":\"2024-12-17\",\"localDateTime\":\"2024-12-17T11:56:29\",\"offsetDateTime\":\"2024-12-17T11:56:29+09:00\"}";
-
-        HttpRequest request = new JaxRsHttpRequest(null);
-
-        Method method = Resource.class.getMethod("get", DataClass.class);
-
-        MockServletRequest servletRequest = new MockServletRequest() {
-            @Override
-            public BufferedReader getReader() throws IOException {
-                return new BufferedReader(new StringReader(json));
-            }
-        };
-        MockServletResponse servletResponse = new MockServletResponse();
-        MockServletContext servletContext = new MockServletContext();
-
-        DataClass data = (DataClass) sut.read(request, new ServletExecutionContext(servletRequest, servletResponse, servletContext) {
-            @Override
-            public JaxRsContext getRequestScopedVar(String varName) throws ClassCastException {
-                return new JaxRsContext(method);
-            }
-        });
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, 11, 17, 11, 56, 29);
-        calendar.clear(Calendar.MILLISECOND);
-
-        DataClass expected = new DataClass(
-                calendar.getTime(),
-                LocalDate.of(2024, 12, 17),
-                LocalDateTime.of(2024, 12, 17, 11, 56, 29),
-                OffsetDateTime.of(2024, 12, 17, 11, 56, 29, 0, ZoneOffset.ofHours(9))
         );
 
         assertThat(data, is(expected));

@@ -22,8 +22,6 @@ public class JerseyJaxRsHandlerListFactory implements JaxRsHandlerListFactory {
     /** {@link Handler}のリスト */
     private final List<Handler<HttpRequest, ?>> handlerList;
 
-    private final JerseyJackson2BodyConverter jerseyJackson2BodyConverter;
-
     /**
      * コンストラクタ。
      */
@@ -32,8 +30,7 @@ public class JerseyJaxRsHandlerListFactory implements JaxRsHandlerListFactory {
         final List<Handler<HttpRequest, ?>> list = new ArrayList<>();
 
         final BodyConvertHandler bodyConvertHandler = new BodyConvertHandler();
-        jerseyJackson2BodyConverter = new JerseyJackson2BodyConverter();
-        bodyConvertHandler.addBodyConverter(jerseyJackson2BodyConverter);
+        bodyConvertHandler.addBodyConverter(new JerseyJackson2BodyConverter());
         bodyConvertHandler.addBodyConverter(new JaxbBodyConverter());
         bodyConvertHandler.addBodyConverter(new FormUrlEncodedConverter());
         list.add(bodyConvertHandler);
@@ -46,9 +43,5 @@ public class JerseyJaxRsHandlerListFactory implements JaxRsHandlerListFactory {
     @Override
     public List<Handler<HttpRequest, ?>> createObject() {
         return handlerList;
-    }
-
-    public void setJacksonTimeZone(String jacksonTimeZone) {
-        jerseyJackson2BodyConverter.setTimeZone(jacksonTimeZone);
     }
 }

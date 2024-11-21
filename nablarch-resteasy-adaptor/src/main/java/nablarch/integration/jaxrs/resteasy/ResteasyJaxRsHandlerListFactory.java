@@ -22,10 +22,6 @@ public class ResteasyJaxRsHandlerListFactory implements JaxRsHandlerListFactory 
     /** {@link Handler}のリスト */
     private final List<Handler<HttpRequest, ?>> handlerList;
 
-    private final ResteasyJackson2BodyConverter resteasyJackson2BodyConverter;
-
-    private String jacksonTimeZone;
-
     /**
      * コンストラクタ。
      */
@@ -34,8 +30,7 @@ public class ResteasyJaxRsHandlerListFactory implements JaxRsHandlerListFactory 
         final List<Handler<HttpRequest, ?>> list = new ArrayList<>();
 
         final BodyConvertHandler bodyConvertHandler = new BodyConvertHandler();
-        resteasyJackson2BodyConverter = new ResteasyJackson2BodyConverter();
-        bodyConvertHandler.addBodyConverter(resteasyJackson2BodyConverter);
+        bodyConvertHandler.addBodyConverter(new ResteasyJackson2BodyConverter());
         bodyConvertHandler.addBodyConverter(new JaxbBodyConverter());
         bodyConvertHandler.addBodyConverter(new FormUrlEncodedConverter());
         list.add(bodyConvertHandler);
@@ -48,9 +43,5 @@ public class ResteasyJaxRsHandlerListFactory implements JaxRsHandlerListFactory 
     @Override
     public List<Handler<HttpRequest, ?>> createObject() {
         return handlerList;
-    }
-
-    public void setJacksonTimeZone(String jacksonTimeZone) {
-        resteasyJackson2BodyConverter.setTimeZone(jacksonTimeZone);
     }
 }

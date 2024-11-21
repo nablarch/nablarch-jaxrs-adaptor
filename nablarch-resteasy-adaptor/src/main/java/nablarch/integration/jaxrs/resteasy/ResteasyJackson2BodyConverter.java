@@ -15,26 +15,13 @@ import nablarch.integration.jaxrs.jackson.Jackson2BodyConverter;
  * 拡張する
  */
 public class ResteasyJackson2BodyConverter extends Jackson2BodyConverter {
-    private ObjectMapper objectMapper;
-
     /**
      * {@inheritDoc}
      */
     @Override
-    protected void configure(ObjectMapper mapper) {
-        this.objectMapper = mapper;
-
+    protected void configure(ObjectMapper objectMapper) {
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"));
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-    }
-
-    /**
-     * タイムゾーンを設定する
-     *
-     * @param timeZone タイムゾーン
-     */
-    public void setTimeZone(String timeZone) {
-        objectMapper.setTimeZone(TimeZone.getTimeZone(timeZone));
     }
 }
