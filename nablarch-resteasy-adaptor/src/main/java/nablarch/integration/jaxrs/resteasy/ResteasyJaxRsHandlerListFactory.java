@@ -7,7 +7,6 @@ import nablarch.fw.jaxrs.JaxRsBeanValidationHandler;
 import nablarch.fw.jaxrs.JaxRsHandlerListFactory;
 import nablarch.fw.jaxrs.JaxbBodyConverter;
 import nablarch.fw.web.HttpRequest;
-import nablarch.integration.jaxrs.jackson.Jackson2BodyConverter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,10 +27,10 @@ public class ResteasyJaxRsHandlerListFactory implements JaxRsHandlerListFactory 
      */
     public ResteasyJaxRsHandlerListFactory() {
 
-        final List<Handler<HttpRequest, ?>> list = new ArrayList<Handler<HttpRequest, ?>>();
+        final List<Handler<HttpRequest, ?>> list = new ArrayList<>();
 
         final BodyConvertHandler bodyConvertHandler = new BodyConvertHandler();
-        bodyConvertHandler.addBodyConverter(new Jackson2BodyConverter());
+        bodyConvertHandler.addBodyConverter(new ResteasyJackson2BodyConverter());
         bodyConvertHandler.addBodyConverter(new JaxbBodyConverter());
         bodyConvertHandler.addBodyConverter(new FormUrlEncodedConverter());
         list.add(bodyConvertHandler);
