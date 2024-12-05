@@ -6,6 +6,7 @@ import nablarch.fw.jaxrs.FormUrlEncodedConverter;
 import nablarch.fw.jaxrs.JaxRsBeanValidationHandler;
 import nablarch.fw.jaxrs.JaxRsHandlerListFactory;
 import nablarch.fw.jaxrs.JaxbBodyConverter;
+import nablarch.fw.jaxrs.MultipartFormDataBodyConverter;
 import nablarch.fw.web.HttpRequest;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class JerseyJaxRsHandlerListFactory implements JaxRsHandlerListFactory {
         bodyConvertHandler.addBodyConverter(new JerseyJackson2BodyConverter());
         bodyConvertHandler.addBodyConverter(new JaxbBodyConverter());
         bodyConvertHandler.addBodyConverter(new FormUrlEncodedConverter());
+        bodyConvertHandler.addBodyConverter(new MultipartFormDataBodyConverter());
         list.add(bodyConvertHandler);
 
         list.add(new JaxRsBeanValidationHandler());

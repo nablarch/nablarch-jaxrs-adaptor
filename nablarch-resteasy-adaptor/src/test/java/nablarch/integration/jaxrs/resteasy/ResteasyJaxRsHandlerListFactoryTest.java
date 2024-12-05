@@ -7,6 +7,7 @@ import nablarch.fw.jaxrs.BodyConverter;
 import nablarch.fw.jaxrs.FormUrlEncodedConverter;
 import nablarch.fw.jaxrs.JaxRsBeanValidationHandler;
 import nablarch.fw.jaxrs.JaxbBodyConverter;
+import nablarch.fw.jaxrs.MultipartFormDataBodyConverter;
 import nablarch.fw.web.HttpRequest;
 import nablarch.test.support.reflection.ReflectionUtil;
 import org.junit.Test;
@@ -34,10 +35,11 @@ public class ResteasyJaxRsHandlerListFactoryTest {
 
         assertThat(list.get(0), instanceOf(BodyConvertHandler.class));
         List<BodyConverter> bodyConverters = ReflectionUtil.getFieldValue(list.get(0), "bodyConverters");
-        assertThat(bodyConverters.size(), is(3));
+        assertThat(bodyConverters.size(), is(4));
         assertThat(bodyConverters.get(0), instanceOf(ResteasyJackson2BodyConverter.class));
         assertThat(bodyConverters.get(1), instanceOf(JaxbBodyConverter.class));
         assertThat(bodyConverters.get(2), instanceOf(FormUrlEncodedConverter.class));
+        assertThat(bodyConverters.get(3), instanceOf(MultipartFormDataBodyConverter.class));
 
         ObjectMapper objectMapper = ReflectionUtil.getFieldValue(bodyConverters.get(0), "objectMapper");
         assertThat(objectMapper.getDeserializationConfig().getTimeZone(), is(TimeZone.getTimeZone("UTC")));
